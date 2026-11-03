@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Salidas que generan los scripts
+medicion_resultados/
+calibracion_revision/
+capturas/

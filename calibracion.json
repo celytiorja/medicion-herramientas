@@ -1,0 +1,52 @@
+{
+  "mm_por_px": 0.510076234695731,
+  "lado_ref_mm": 30.0,
+  "lado_ref_px": 58.81473779678345,
+  "resolucion": [
+    640,
+    480
+  ],
+  "fotos": [
+    "foto_0002.jpg",
+    "foto_0003.jpg",
+    "foto_0004.jpg",
+    "foto_0005.jpg",
+    "foto_0006.jpg",
+    "foto_0007.jpg",
+    "foto_0008.jpg",
+    "foto_0009.jpg",
+    "foto_0010.jpg",
+    "foto_0011.jpg",
+    "foto_0012.jpg",
+    "foto_0013.jpg",
+    "foto_0014.jpg",
+    "foto_0015.jpg",
+    "foto_0016.jpg",
+    "foto_0017.jpg"
+  ],
+  "fecha": "2026-11-03T10:41:05",
+  "ajuste": {
+    "broca": {
+      "L": {
+        "ganancia": 1.7724,
+        "desfase": 0.573
+      },
+      "b": {
+        "ganancia": 0.9145,
+        "desfase": 0.6967
+      }
+    },
+    "fresa": {
+      "b": {
+        "ganancia": 0.9157,
+        "desfase": 2.4188
+      }
+    },
+    "macho": {
+      "b": {
+        "ganancia": 1.5737,
+        "desfase": -2.4528
+      }
+    }
+  }
+}
