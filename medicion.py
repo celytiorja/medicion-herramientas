@@ -30,6 +30,8 @@ ARCHIVO_CAL = BASE / "calibracion.json"
 LADO_REF_MM = 30.0                  # lado real del ArUco impreso: medirlo con regla
 ZONA_BANDA = (225, 160, 575, 330)   # (x0, y0, x1, y1) en px: parte útil de la banda (imagen 640x480)
 D_UMBRAL = 6.0                      # distancia de color a partir de la cual un píxel ya no es banda
+V_BANDA = 170                       # brillo (V de HSV) mínimo de la banda con la luz de las fotos
+V_RELATIVO = 0.72                   # con menos luz el umbral baja: V_RELATIVO × brillo de la banda
 CANALES = {"broca": ["L", "b"], "fresa": ["b"], "macho": ["b"]}   # elegidos con las fotos de ajuste
 TRAMOS = 4                          # la herramienta se mide en 4 tramos y se toma la mediana
 FRACCION_PICO = 0.5                 # un borde es el primer pico de gradiente >= 50 % del máximo
@@ -94,7 +96,14 @@ def mapa_distancia(roi):
     hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
     lab = cv2.cvtColor(roi, cv2.COLOR_BGR2LAB).astype(np.float32)
     h, s, v = cv2.split(hsv)
-    amarillo = (h >= 22) & (h <= 35) & (s > 150) & (v > 170)
+    tono = (h >= 22) & (h <= 35) & (s > 150)
+    if tono.sum() < 500:
+        return None
+    # Umbral de brillo fijo = con menos luz (exposición de DroidCam, luz del salón) casi no
+    # quedan píxeles de banda y la herramienta se pierde. Solo baja, nunca sube: con la luz
+    # de las fotos queda en V_BANDA y el resultado es el mismo de siempre.
+    umbral_v = min(V_BANDA, V_RELATIVO * np.percentile(v[tono], 95))
+    amarillo = tono & (v > umbral_v)
     if amarillo.sum() < 500:
         return None
     px = lab[amarillo]

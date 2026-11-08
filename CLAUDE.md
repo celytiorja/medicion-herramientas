@@ -69,6 +69,10 @@ machos 31/35. Unos 25 ms por cuadro.
 - Brocas en mm y en pulgadas casi iguales (9.5 mm vs 3/8") son físicamente indistinguibles a esta
   resolución (~1.5 px/mm): la serie la elige el usuario.
 - `ZONA_BANDA` y `calibracion.json` dependen de la posición de la cámara y de la resolución 640×480.
+- El modelo de color de la banda usaba un umbral de brillo fijo (V > 170): con 80 % de luz se perdía la
+  herramienta en 18 fotos y con 70 % en 91. Ahora el umbral es `min(V_BANDA, V_RELATIVO × p95 del V de
+  la banda)`: con la luz de las fotos da exactamente 170 (resultados idénticos a la línea base) y solo
+  baja cuando la imagen es más oscura (70 % de luz: 158/192 medidas correctas, igual que con luz normal).
 
 ## Estilo
 
